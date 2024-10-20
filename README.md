@@ -61,9 +61,3 @@ For more information on Infrastructure as Code, check out the following resource
 - [Server Automation with JavaScript](https://nodejs.org/en/docs/guides/)
 
 ```
-
-This updated 
-
-README.md
-
- provides a clear explanation of what the repository is about and includes an ASCII graphic related to Infrastructure as Code.
