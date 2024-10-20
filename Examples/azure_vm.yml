@@ -1,0 +1,62 @@
+- name: Create a new Azure VM
+  hosts: localhost
+  gather_facts: no
+  tasks:
+  - name: Create a new Azure VM
+    azure_rm_virtualmachine:
+      resource_group: myResourceGroup
+      name: myVM
+      location: eastus
+      vm_size: Standard_DS1_v2
+      storage_account_type: Standard_LRS
+      storage_container_name: myContainer
+      storage_blob_name: myBlob
+      storage_account_name: myStorageAccount
+      admin_username: myAdmin
+      ssh:
+        public_keys:
+
+- name: Create a virtual network
+  hosts: localhost
+  gather_facts: no
+  tasks:
+  - name: Create a virtual network
+    azure_rm_virtualnetwork:
+      resource_group: myResourceGroup
+      name: myVnet
+      location: eastus
+      address_prefixes:
+
+# Resource group for the deployment
+resource_group: myResourceGroup
+
+# Subnet configuration
+subnet:
+  name: mySubnet
+  address_prefix: # Add the address prefix here, e.g., "10.0.0.0/24"
+
+# Network security group configuration
+network_security_group:
+  resource_group: myResourceGroup
+  name: mySecurityGroup
+  location: eastus
+  security_rules:
+    - name: mySecurityRule
+      priority: 100
+      direction: Inbound
+      access: Allow
+      protocol: Tcp
+      source_address_prefix: "*"
+      source_port_range: "*"
+      destination_address_prefix: "*"
+      destination_port_range: "22" # SSH port
+
+    - name: mySecurityRule2
+      priority: 101
+      direction: Inbound
+      access: Allow
+      protocol: Tcp
+      source_address_prefix: "*"
+      source_port_range: "*"
+      destination_address_prefix: "*"
+      destination_port_range: "80" # HTTP port

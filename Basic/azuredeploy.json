@@ -1,0 +1,41 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "variables": {
+        "storageAccountName": "mystorageaccount"  // Define the storage account name variable
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Storage/storageAccounts",
+            "apiVersion": "2019-06-01",
+            "name": "[variables('storageAccountName')]",  // Storage account name from variables
+            "location": "[resourceGroup().location]",     // Location of the resource group
+            "sku": {
+                "name": "Standard_LRS"                   // Storage SKU
+            },
+            "kind": "StorageV2",                          // Storage kind
+            "properties": {
+                "networkAcls": {
+                    "bypass": "AzureServices",            // Bypass Azure services
+                    "virtualNetworkRules": [],            // No virtual network rules
+                    "ipRules": [],                        // No IP rules
+                    "defaultAction": "Allow"              // Default action to allow
+                },
+                "supportsHttpsTrafficOnly": true,         // Enforce HTTPS traffic only
+                "encryption": {
+                    "services": {
+                        "file": {
+                            "keyType": "Account",         // Encryption key type for file service
+                            "enabled": true               // Enable encryption for file service
+                        },
+                        "blob": {
+                            "keyType": "Account",         // Encryption key type for blob service
+                            "enabled": true               // Enable encryption for blob service
+                        }
+                    },
+                    "keySource": "Microsoft.Storage"      // Key source for encryption
+                }
+            }
+        }
+    ]
+}

@@ -1,0 +1,38 @@
+{
+    // Schema for the deployment template
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    
+    // Version of the template content
+    "contentVersion": "1.0.0.0",
+    
+    // Resources to be deployed
+    "resources": [
+        {
+            // Type of resource: Storage Account
+            "type": "Microsoft.Storage/storageAccounts",
+            
+            // API version to use for this resource
+            "apiVersion": "2019-06-01",
+            
+            // Name of the storage account, parameterized
+            "name": "[parameters('storageAccountName')]",
+            
+            // Location of the storage account, parameterized
+            "location": "[parameters('location')]",
+            
+            // SKU (pricing tier) of the storage account, parameterized
+            "sku": {
+                "name": "[parameters('skuName')]"
+            },
+            
+            // Kind of storage account
+            "kind": "StorageV2",
+            
+            // Properties of the storage account
+            "properties": {
+                // Enable HTTPS traffic only
+                "supportsHttpsTrafficOnly": true
+            }
+        }
+    ]
+}
