@@ -16,15 +16,6 @@ Welcome to the IAC-Examples repository! This repository contains various example
   - `azuredeplo.json`: ARM template with a typo for demonstration purposes.
   - `main.tf`: Advanced Terraform configuration file.
 
-## ASCII Art
-
-Sure, here's an improved version of your 
-
-README.md
-
- file with an explanation of the repository and an ASCII graphic related to Infrastructure as Code (IaC):
-
-```markdown
 # IAC-Examples
 
 Welcome to the IAC-Examples repository! This repository contains various examples and templates for Infrastructure as Code (IaC) using different tools and platforms. Whether you're working with Terraform, Azure Resource Manager (ARM) templates, or JavaScript for server automation, you'll find useful examples here to help you get started.
