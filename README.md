@@ -16,18 +16,6 @@ Welcome to the IAC-Examples repository! This repository contains various example
   - `azuredeplo.json`: ARM template with a typo for demonstration purposes.
   - `main.tf`: Advanced Terraform configuration file.
 
-## ASCII Art
-
-```
-  _____        _____            _        _                 
- |_   _|      |_   _|          (_)      | |                
-   | |  _ __    | |  _ __  _ __ _   ___ | |__   ___  _ __  
-   | | | '_ \   | | | '_ \| '__| | / _ \| '_ \ / _ \| '_ \ 
-  _| |_| | | | _| |_| | | | |  | || (_) | | | | (_) | | | |
- |_____|_| |_|_____ |_| |_|_|  |_| \___/|_| |_|\___/|_| |_|
-```
-
-Feel free to explore the examples and templates provided in this repository. Contributions and improvements are always welcome!
 
 ## Getting Started
 
