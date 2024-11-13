@@ -1,0 +1,43 @@
+---
+# Task: Create Azure VM
+- name: Create Azure VM
+  hosts: localhost
+  connection: local
+  tasks:
+    # Task: Create Virtual Network
+    - name: Create Virtual Network
+      azure_rm_virtualnetwork:
+        resource_group: myResourceGroup
+        name: myVnet
+        address_prefixes: 10.0.0.0/16  # Added address prefix
+
+    # Task: Create Subnet
+    - name: Create Subnet
+      azure_rm_subnet:
+        resource_group: myResourceGroup
+        virtual_network: myVnet
+        name: mySubnet
+        address_prefix: 10.0.1.0/24  # Added address prefix
+
+    # Task: Create Network Interface
+    - name: Create Network Interface
+      azure_rm_networkinterface:
+        resource_group: myResourceGroup
+        name: myNic
+        virtual_network: myVnet
+        subnet: mySubnet
+
+    # Task: Create Virtual Machine
+    - name: Create Virtual Machine
+      azure_rm_virtualmachine:
+        resource_group: myResourceGroup
+        name: myVM
+        vm_size: Standard_DS1_v2
+        storage_account_type: Standard_LRS
+        storage_container: myContainer
+        storage_blob: myVHD
+        admin_username: azureuser
+        ssh_password_enabled: false
+        ssh_public_keys:
+          - path: /home/azureuser/.ssh/authorized_keys
+            key_data: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"  # Added key data lookup
