@@ -1,58 +1,43 @@
-const express = require('express');
 const axios = require('axios');
-const bodyParser = require('body-parser');
 
-const app = express();
-app.use(bodyParser.json());
+const GITHUB_API_URL = 'https://your-github-enterprise-server/api/v3';
+const TOKEN = 'your_personal_access_token';
 
-// Configuration for Azure AD and Dynamics instance
-const clientId = 'YOUR_CLIENT_ID';
-const clientSecret = 'YOUR_CLIENT_SECRET';
-const tenantId = 'YOUR_TENANT_ID';
-const resource = 'https://your-dynamics-instance.api.crm.dynamics.com';
-const authority = `https://login.microsoftonline.com/${tenantId}/oauth2/token`;
-
-/**
- * Function to get access token from Azure AD
- * @returns {Promise<string>} - A promise that resolves to the access token
- */
-async function getAccessToken() {
+async function getGitHubEnterpriseStats() {
     try {
-        const response = await axios.post(authority, null, {
-            params: {
-                grant_type: 'client_credentials',
-                client_id: clientId,
-                client_secret: clientSecret,
-                resource: resource
-            }
-        });
-        return response.data.access_token;
+        // Set up the headers for the API requests, including the authorization token
+        const headers = {
+            'Authorization': `token ${TOKEN}`,
+            'Accept': 'application/vnd.github.v3+json'
+        };
+
+        // Get the number of users
+        // Make a GET request to the /users endpoint
+        const usersResponse = await axios.get(`${GITHUB_API_URL}/users`, { headers });
+        // Extract the number of users from the response data
+        const numberOfUsers = usersResponse.data.length;
+
+        // Get the number of licenses
+        // Make a GET request to the /enterprise/settings/license endpoint
+        const licensesResponse = await axios.get(`${GITHUB_API_URL}/enterprise/settings/license`, { headers });
+        // Extract the number of licenses from the response data
+        const numberOfLicenses = licensesResponse.data.seats;
+
+        // Get the number of active committers
+        // Make a GET request to the /enterprise/stats/commits endpoint
+        const activeCommittersResponse = await axios.get(`${GITHUB_API_URL}/enterprise/stats/commits`, { headers });
+        // Extract the number of active committers from the response data
+        const numberOfActiveCommitters = activeCommittersResponse.data.active_committers;
+
+        // Log the results to the console
+        console.log(`Number of Users: ${numberOfUsers}`);
+        console.log(`Number of Licenses: ${numberOfLicenses}`);
+        console.log(`Number of Active Committers: ${numberOfActiveCommitters}`);
     } catch (error) {
-        throw new Error('Failed to fetch access token');
+        // Log any errors that occur during the API requests
+        console.error('Error fetching GitHub Enterprise stats:', error);
     }
 }
 
-/**
- * Route to get list of users from Microsoft Dynamics
- */
-app.get('/users', async (req, res) => {
-    try {
-        const token = await getAccessToken();
-        const response = await axios.get(`${resource}/api/data/v9.1/systemusers`, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        });
-        res.json(response.data.value);
-    } catch (error) {
-        res.status(500).send(error.message);
-    }
-});
-
-// Start the server
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-});
-
-module.exports = app; // Export the app for testing
+// Call the function to get and log the GitHub Enterprise stats
+getGitHubEnterpriseStats();
