@@ -1,19 +1,19 @@
 header:**
-- name Create Azure VM
- hosts: localhost
- connection: local
- tasks: 
-  - name: Create Azure VM
-    azure_rm_virtualmachine:
-      resource_group: myResourceGroup
-      name: myVM
-      location: eastus
-      vm_size: Standard_DS1_v2
-      storage_account_type: Standard_LRS
-      storage_container_name: myContainer
-      storage_blob_name: myBlob
-      admin_username: azureuser
-      ssh_public_keys: 
+- name: Create Azure VM
+  hosts: localhost
+  connection: local
+  tasks: 
+    - name: Create Azure VM
+      azure_rm_virtualmachine:
+        resource_group: myResourceGroup
+        name: myVM
+        location: eastus
+        vm_size: Standard_DS1_v2
+        storage_account_type: Standard_LRS
+        storage_container_name: myContainer
+        storage_blob_name: myBlob
+        admin_username: azureuser
+        ssh_public_keys: []
 
 # Define a virtual network in Azure
 - name: Create virtual network

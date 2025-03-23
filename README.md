@@ -36,6 +36,15 @@ This section provides an example of how to deploy nginx on AWS using a CloudForm
 For more information on AWS CloudFormation, check out the following resources:
 - [AWS CloudFormation Documentation](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/Welcome.html)
 
+## Environment Variables
+
+To ensure security, sensitive information such as tokens and keys are now managed using environment variables. Before running the examples, set the following environment variables:
+
+- `GITHUB_TOKEN`: Your GitHub personal access token for accessing the GitHub Enterprise API.
+- `ACCESS_TOKEN`: Your access token for querying Microsoft Dynamics.
+
+You can set these variables in your terminal session or use a `.env` file with a library like `dotenv` (for Node.js projects).
+
 Happy coding!
 
 ---

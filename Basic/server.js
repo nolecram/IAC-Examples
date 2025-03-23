@@ -7,6 +7,8 @@ const fetch = require("node-fetch");
 const app = express();
 const port = 3000;
 
+const ACCESS_TOKEN = process.env.ACCESS_TOKEN; // Use environment variable for access token
+
 // Define the API endpoint
 app.get("/api/customers", async (req, res) => {
     // Get the query parameter from the request
@@ -17,7 +19,7 @@ app.get("/api/customers", async (req, res) => {
     
     // Create the request headers
      const headers = {
-        "Authorization": "Bearer <access-token>",
+        "Authorization": `Bearer ${ACCESS_TOKEN}`,
         "Content-Type": "application/json",
     };
     

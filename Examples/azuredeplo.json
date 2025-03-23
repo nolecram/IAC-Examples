@@ -36,3 +36,4 @@
         }
     ]
 }
+// Rename file to azuredeploy.json for consistency.

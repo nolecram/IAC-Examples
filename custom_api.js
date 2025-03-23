@@ -1,7 +1,7 @@
 const axios = require('axios');
 
 const GITHUB_API_URL = 'https://your-github-enterprise-server/api/v3';
-const TOKEN = 'your_personal_access_token';
+const TOKEN = process.env.GITHUB_TOKEN; // Use environment variable for token
 
 async function getGitHubEnterpriseStats() {
     try {
